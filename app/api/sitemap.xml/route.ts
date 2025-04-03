@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server"
 import { getContentData, flattenContenido } from "@/lib/content-utils"
-import type { MetadataRoute } from "next"
 
 export async function GET() {
   const data = await getContentData()
-  const sitemap: MetadataRoute.Sitemap = []
+  const sitemap = []
 
   // Añadir la página principal
   sitemap.push({
@@ -59,6 +58,3 @@ export async function GET() {
     }
   })
 }
-  return sitemap
-}
-
