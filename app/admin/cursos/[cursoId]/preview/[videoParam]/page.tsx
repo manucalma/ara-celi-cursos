@@ -88,7 +88,7 @@ export default function PreviewPage({ params }: PreviewPageProps) {
   // Función para formatear texto enriquecido similar a WhatsApp
   /*const formatRichText = (text: string): string => {
     return text
-      .replace(/\*([^*]+)\*/ g, \
+      .replace(/\*([^*]+)\*/g, \
   "<strong>$1</strong>\") // Negrita
       .replace(/_([^_]+)_/g, "<em>$1</em>") // Cursiva
       .replace(/~([^~]+)~/g, "<del>$1</del>") // Tachado
