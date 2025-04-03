@@ -1,7 +1,8 @@
+import { NextResponse } from "next/server"
 import { getContentData, flattenContenido } from "@/lib/content-utils"
 import type { MetadataRoute } from "next"
 
-export async function GET(): Promise<MetadataRoute.Sitemap> {
+export async function GET() {
   const data = await getContentData()
   const sitemap: MetadataRoute.Sitemap = []
 
@@ -38,6 +39,26 @@ export async function GET(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
+  // Convertir el sitemap a XML
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  ${sitemap.map(item => `
+    <url>
+      <loc>${item.url}</loc>
+      <lastmod>${new Date(item.lastModified).toISOString()}</lastmod>
+      <changefreq>${item.changeFrequency}</changefreq>
+      <priority>${item.priority}</priority>
+    </url>
+  `).join('')}
+</urlset>`
+  
+  // Devolver la respuesta como XML
+  return new NextResponse(xml, {
+    headers: {
+      'Content-Type': 'application/xml'
+    }
+  })
+}
   return sitemap
 }
 
