@@ -21,7 +21,16 @@ const nextConfig = {
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
   },
-}
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        fs: false,
+        path: false,
+      };
+    }
+    return config;
+  },
+};
 
 if (userConfig) {
   // ESM imports will have a "default" property
@@ -42,4 +51,4 @@ if (userConfig) {
   }
 }
 
-export default nextConfig
+export default nextConfig;
